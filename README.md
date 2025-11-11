@@ -1,8 +1,8 @@
 
-# Auto Repair Plant Management System (C++17 / CMake)
+# Auto Repair Plant Management System 
 
-A small, object‑oriented **Auto Repair Plant Management System** for teaching purposes (fits the “面向对象程序设计开发与实现” experiment).  
-It demonstrates **encapsulation, inheritance, polymorphism, composition, strategy, observer, state machine**, and simple **CSV persistence**.
+A small, object‑oriented **Auto Repair Plant Management System** for experiments report (fits the “面向对象程序设计开发与实现” experiment).  
+
 
 ## Features
 
@@ -67,7 +67,7 @@ Paid Orders: 1, Turnover: 189
 
 > The **[ALERT]** line appears when a part stock is at/under its reorder threshold.
 
-## How It Works (Flow)
+## WorksFlow
 
 1. **Seed Data**: Parts are read/written via a tiny CSV repository (`PartCsvRepository`).  
 2. **Create Actors**: Customer, Vehicle, Technician (hourly), ServiceAdvisor (salary+commission).  
@@ -85,13 +85,6 @@ Paid Orders: 1, Turnover: 189
 - **Strategy Pattern**: pricing is pluggable via `PricingStrategy`.
 - **Observer Pattern**: `InventoryObserver` → `ReorderNotifier` for low stock.
 - **State Machine**: guarded transitions in `WorkOrder` (throws on invalid order).
-
-## Extend Ideas
-
-- Add CRUD menus and repositories for customers/vehicles/work orders.
-- Add `CampaignPricing` time‑window logic.
-- Replace CSV with SQLite/JSON/YAML as you like.
-- Add more reports (top parts, technician utilization, etc.).
 
 ## License
 
