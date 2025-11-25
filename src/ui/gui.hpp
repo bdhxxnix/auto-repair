@@ -67,6 +67,7 @@ private:
   QWidget* buildWorkOrderPage();
   QWidget* buildTechnicianPage();
   QWidget* buildSummaryPage();
+  QWidget* buildHelpPage();
 
   void populateCustomers();
   void populateVehiclesForCustomer(const std::string& customerId);

@@ -60,6 +60,7 @@ void MainWindow::setupUI() {
   tabs_->addTab(buildWorkOrderPage(), tr("Work Orders"));
   tabs_->addTab(buildTechnicianPage(), tr("Mechanics"));
   tabs_->addTab(buildSummaryPage(), tr("Summary"));
+  tabs_->addTab(buildHelpPage(), tr("Help"));
 }
 
 QWidget* MainWindow::buildCustomerPage() {
@@ -220,6 +221,23 @@ QWidget* MainWindow::buildSummaryPage() {
   inventoryTable_->setHorizontalHeaderLabels({tr("Part ID"), tr("Name"), tr("Stock"), tr("Capacity")});
   inventoryTable_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   layout->addWidget(inventoryTable_);
+  return page;
+}
+
+QWidget* MainWindow::buildHelpPage() {
+  auto* page = new QWidget(this);
+  auto* layout = new QVBoxLayout(page);
+  auto* helpText = new QTextEdit(page);
+  helpText->setReadOnly(true);
+  helpText->setMarkdown(tr(
+    "## How to use the Auto Repair Manager\n"
+    "- **Customers tab:** Add customers and their vehicles. Select a customer to view and attach vehicles before creating work orders.\n"
+    "- **Work Orders tab:** Choose a vehicle and mechanic, enter service details, and create the order. Use the Assign/Start/Complete/Settle buttons to move the order through its lifecycle.\n"
+    "- **Mechanics tab:** Add mechanics with an ID, name, and hourly rate. Mechanics become available for assignment once added.\n"
+    "- **Summary tab:** Review overall status counts, paid order totals, and current inventory levels.\n"
+    "- **Tips:** Required fields show validation dialogs if left empty. Settling an order consumes parts and may show inventory alerts."
+  ));
+  layout->addWidget(helpText);
   return page;
 }
 
