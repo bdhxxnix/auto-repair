@@ -96,7 +96,8 @@ ServiceAdvisor advisorFromJson(const QJsonObject& o) {
 
 QJsonObject partToJson(const Part& p) {
   return QJsonObject{{"id", QString::fromStdString(p.id)}, {"name", QString::fromStdString(p.name)},
-                     {"unitPrice", p.unitPrice}, {"stock", p.stock}, {"reorderPoint", p.reorderPoint}};
+                     {"unitPrice", p.unitPrice}, {"stock", p.stock}, {"reorderPoint", p.reorderPoint},
+                     {"capacity", p.capacity}};
 }
 
 Part partFromJson(const QJsonObject& o) {
@@ -106,6 +107,7 @@ Part partFromJson(const QJsonObject& o) {
   p.unitPrice = o.value("unitPrice").toDouble();
   p.stock = o.value("stock").toInt();
   p.reorderPoint = o.value("reorderPoint").toInt();
+  p.capacity = o.value("capacity").toInt();
   return p;
 }
 
@@ -139,6 +141,7 @@ QJsonObject woItemToJson(const WOItem& item) {
   QJsonObject obj;
   obj.insert("service", serviceToJson(item.item));
   obj.insert("laborOverride", item.laborHoursOverride);
+  obj.insert("autoDetected", item.autoDetected);
   QJsonArray parts;
   for (const auto& pr : item.parts) {
     QJsonObject pairObj;
@@ -154,6 +157,7 @@ WOItem woItemFromJson(const QJsonObject& o) {
   WOItem it;
   it.item = serviceFromJson(o.value("service").toObject());
   it.laborHoursOverride = o.value("laborOverride").toDouble(-1);
+  it.autoDetected = o.value("autoDetected").toBool(false);
   auto partsArr = o.value("parts").toArray();
   for (const auto& v : partsArr) {
     auto pairObj = v.toObject();
@@ -170,6 +174,7 @@ QJsonObject workOrderToJson(const WorkOrder& w) {
   obj.insert("tech", technicianToJson(w.tech));
   obj.insert("customer", customerToJson(w.customer));
   obj.insert("status", statusToString(w.status));
+  obj.insert("detectionNote", QString::fromStdString(w.detectionNote));
   obj.insert("pricing", pricingToString(*w.pricing));
   QJsonArray items;
   for (const auto& it : w.items) items.push_back(woItemToJson(it));
@@ -185,6 +190,7 @@ WorkOrder workOrderFromJson(const QJsonObject& o) {
   w.tech = technicianFromJson(o.value("tech").toObject());
   w.customer = customerFromJson(o.value("customer").toObject());
   w.status = statusFromString(o.value("status").toString());
+  w.detectionNote = o.value("detectionNote").toString().toStdString();
   w.pricing = pricingFromString(o.value("pricing").toString());
   auto itemsArr = o.value("items").toArray();
   for (const auto& v : itemsArr) w.items.push_back(woItemFromJson(v.toObject()));

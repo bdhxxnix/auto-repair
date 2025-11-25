@@ -401,6 +401,9 @@ CMakeFiles/auto_repair.dir/src/main.cpp.o: \
  /home/andy/Projects/C++_learning/auto_repair/src/domain/part.hpp \
  /home/andy/Projects/C++_learning/auto_repair/src/domain/service_item.hpp \
  /home/andy/Projects/C++_learning/auto_repair/src/domain/data_store.hpp \
+ /home/andy/Projects/C++_learning/auto_repair/src/inventory/store_house.hpp \
+ /home/andy/Projects/C++_learning/auto_repair/src/inventory/inventory.hpp \
+ /home/andy/Projects/C++_learning/auto_repair/src/inventory/observer.hpp \
  /home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.hpp \
  /home/andy/Projects/C++_learning/auto_repair/src/persistence/file_repository.hpp \
  /usr/include/c++/13/fstream /usr/include/c++/13/istream \
@@ -417,4 +420,5 @@ CMakeFiles/auto_repair.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
  /usr/include/c++/13/bits/fstream.tcc /usr/include/c++/13/sstream \
  /usr/include/c++/13/bits/sstream.tcc \
- /home/andy/Projects/C++_learning/auto_repair/src/persistence/repository.hpp
+ /home/andy/Projects/C++_learning/auto_repair/src/persistence/repository.hpp \
+ /home/andy/Projects/C++_learning/auto_repair/src/domain/maintenance_detector.hpp

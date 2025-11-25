@@ -12,9 +12,11 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 add_executable(auto_repair
     src/main.cpp
     src/domain/work_order.cpp
+    src/domain/maintenance_detector.cpp
     src/ui/cli.cpp
     src/ui/gui.cpp
     src/persistence/data_store_persistence.cpp
+    src/inventory/store_house.cpp
 )
 
 target_include_directories(auto_repair PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

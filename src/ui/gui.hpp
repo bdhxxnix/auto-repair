@@ -14,6 +14,7 @@
 #include <vector>
 #include "domain/work_order.hpp"
 #include "domain/data_store.hpp"
+#include "inventory/store_house.hpp"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
@@ -33,6 +34,7 @@ private slots:
 
 private:
   DataStore store_;
+  StoreHouse storeHouse_{};
   QString dataPath_;
   QTabWidget* tabs_{};
 
@@ -72,6 +74,7 @@ private:
   void populateWorkOrders();
   void populateSelectors();
   void updateSummary();
+  void refreshInventorySnapshot();
   int currentWorkOrderRow() const;
   void attachOrderToTech(const std::string& techId, const std::string& woId);
   void detachOrderFromAllTechs(const std::string& woId);

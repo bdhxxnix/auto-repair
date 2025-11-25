@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <map>
 #include <cstdio>
+#include "domain/maintenance_detector.hpp"
 #include "report/report_service.hpp"
 #include "persistence/data_store_persistence.hpp"
 
@@ -42,6 +43,7 @@ QString joinIds(const std::vector<std::string>& ids) {
 
 MainWindow::MainWindow(DataStore store, const QString& dataPath, QWidget* parent)
     : QMainWindow(parent), store_(std::move(store)), dataPath_(dataPath) {
+  storeHouse_.seed(store_.parts);
   setupUI();
   populateCustomers();
   populateTechnicians();
@@ -147,8 +149,8 @@ QWidget* MainWindow::buildWorkOrderPage() {
   auto* page = new QWidget(this);
   auto* layout = new QVBoxLayout(page);
 
-  workOrderTable_ = new QTableWidget(0, 6, page);
-  workOrderTable_->setHorizontalHeaderLabels({tr("ID"), tr("Vehicle"), tr("Customer"), tr("Mechanic"), tr("Status"), tr("Total")});
+  workOrderTable_ = new QTableWidget(0, 7, page);
+  workOrderTable_->setHorizontalHeaderLabels({tr("ID"), tr("Vehicle"), tr("Customer"), tr("Mechanic"), tr("Status"), tr("Total"), tr("Detection")});
   workOrderTable_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   layout->addWidget(workOrderTable_);
 
@@ -215,7 +217,7 @@ QWidget* MainWindow::buildSummaryPage() {
 
   layout->addWidget(new QLabel(tr("Inventory Snapshot"), page));
   inventoryTable_ = new QTableWidget(0, 4, page);
-  inventoryTable_->setHorizontalHeaderLabels({tr("Part ID"), tr("Name"), tr("Stock"), tr("Reorder Point")});
+  inventoryTable_->setHorizontalHeaderLabels({tr("Part ID"), tr("Name"), tr("Stock"), tr("Capacity")});
   inventoryTable_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   layout->addWidget(inventoryTable_);
   return page;
@@ -271,6 +273,7 @@ void MainWindow::populateWorkOrders() {
     workOrderTable_->setItem(row, 3, new QTableWidgetItem(QString::fromStdString(w.tech.name)));
     workOrderTable_->setItem(row, 4, new QTableWidgetItem(statusToText(w.status)));
     workOrderTable_->setItem(row, 5, new QTableWidgetItem(QString::number(w.previewTotal())));
+    workOrderTable_->setItem(row, 6, new QTableWidgetItem(QString::fromStdString(w.detectionNote)));
   }
 }
 
@@ -292,6 +295,7 @@ void MainWindow::populateSelectors() {
 }
 
 void MainWindow::updateSummary() {
+  refreshInventorySnapshot();
   statusTable_->setRowCount(0);
   auto report = ReportService::summary(store_.workOrders, store_.parts);
   auto insertRow = [&](const QString& name, WOStatus status) {
@@ -318,8 +322,12 @@ void MainWindow::updateSummary() {
     inventoryTable_->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(p.id)));
     inventoryTable_->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(p.name)));
     inventoryTable_->setItem(row, 2, new QTableWidgetItem(QString::number(p.stock)));
-    inventoryTable_->setItem(row, 3, new QTableWidgetItem(QString::number(p.reorderPoint)));
+    inventoryTable_->setItem(row, 3, new QTableWidgetItem(QString::number(p.capacity)));
   }
+}
+
+void MainWindow::refreshInventorySnapshot() {
+  store_.parts = storeHouse_.snapshot();
 }
 
 void MainWindow::attachOrderToTech(const std::string& techId, const std::string& woId) {
@@ -337,6 +345,7 @@ void MainWindow::detachOrderFromAllTechs(const std::string& woId) {
 }
 
 void MainWindow::persist() {
+  refreshInventorySnapshot();
   DataStorePersistence::save(store_, dataPath_.toStdString());
 }
 
@@ -430,6 +439,25 @@ void MainWindow::createWorkOrder() {
   w.customer = *customerIt;
   w.advisor.id = "SA001"; w.advisor.name = "Advisor"; // simple demo advisor
 
+  auto detection = MaintenanceDetector::detect(*vehicleIt, storeHouse_.snapshot());
+  w.items.insert(w.items.end(), detection.items.begin(), detection.items.end());
+  w.detectionNote = detection.note;
+  if (!detection.items.empty()) {
+    QStringList detectedLines;
+    for (const auto& it : detection.items) {
+      QStringList partLabels;
+      for (const auto& pr : it.parts) {
+        partLabels << QString::fromStdString(pr.first.name + " x" + std::to_string(pr.second));
+      }
+      auto partSummary = partLabels.isEmpty() ? tr("No parts required") : partLabels.join(", ");
+      detectedLines << QString::fromStdString(it.item.name) + " (" + partSummary + ")";
+    }
+    QMessageBox::information(this, tr("Detected Service"),
+                             tr("Proposed jobs based on vehicle %1:\n%2")
+                             .arg(QString::fromStdString(vehicleIt->plate))
+                             .arg(detectedLines.join("\n")));
+  }
+
   ServiceItem si;
   si.id = serviceId_->text().toStdString();
   si.name = serviceName_->text().toStdString();
@@ -440,6 +468,7 @@ void MainWindow::createWorkOrder() {
     WOItem item;
     item.item = si;
     item.laborHoursOverride = laborOverride_->value();
+    item.autoDetected = false;
     w.items.push_back(item);
   }
 
@@ -516,7 +545,20 @@ void MainWindow::settleWorkOrder() {
   if (row < 0 || row >= static_cast<int>(store_.workOrders.size())) return;
   try {
     double total = store_.workOrders[row].settle();
-    QMessageBox::information(this, tr("Settled"), tr("Total: %1").arg(total));
+    bool consumed = storeHouse_.consumeForOrder(store_.workOrders[row]);
+    auto alerts = storeHouse_.takeAlerts();
+    refreshInventorySnapshot();
+
+    QString message = tr("Total: %1").arg(total);
+    if (!consumed) {
+      message += tr("\nUnable to consume all parts. Check inventory levels.");
+    }
+    if (!alerts.empty()) {
+      QStringList alertLines;
+      for (const auto& a : alerts) alertLines << QString::fromStdString(a);
+      message += tr("\nAlerts:\n%1").arg(alertLines.join("\n"));
+    }
+    QMessageBox::information(this, tr("Settled"), message);
   } catch (const std::exception& e) {
     QMessageBox::warning(this, tr("Cannot settle"), e.what());
   }

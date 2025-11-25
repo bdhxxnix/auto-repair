@@ -117,10 +117,24 @@ CMakeFiles/auto_repair.dir/src/domain/work_order.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/auto_repair.dir/src/domain/work_order.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/andy/Projects/C++_learning/auto_repair/src/domain/work_order.cpp -o CMakeFiles/auto_repair.dir/src/domain/work_order.cpp.s
 
+CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o: CMakeFiles/auto_repair.dir/flags.make
+CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o: /home/andy/Projects/C++_learning/auto_repair/src/domain/maintenance_detector.cpp
+CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o: CMakeFiles/auto_repair.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o -MF CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o.d -o CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o -c /home/andy/Projects/C++_learning/auto_repair/src/domain/maintenance_detector.cpp
+
+CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/andy/Projects/C++_learning/auto_repair/src/domain/maintenance_detector.cpp > CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.i
+
+CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/andy/Projects/C++_learning/auto_repair/src/domain/maintenance_detector.cpp -o CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.s
+
 CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o: CMakeFiles/auto_repair.dir/flags.make
 CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o: /home/andy/Projects/C++_learning/auto_repair/src/ui/cli.cpp
 CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o: CMakeFiles/auto_repair.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o -MF CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o.d -o CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o -c /home/andy/Projects/C++_learning/auto_repair/src/ui/cli.cpp
 
 CMakeFiles/auto_repair.dir/src/ui/cli.cpp.i: cmake_force
@@ -134,7 +148,7 @@ CMakeFiles/auto_repair.dir/src/ui/cli.cpp.s: cmake_force
 CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o: CMakeFiles/auto_repair.dir/flags.make
 CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o: /home/andy/Projects/C++_learning/auto_repair/src/ui/gui.cpp
 CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o: CMakeFiles/auto_repair.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o -MF CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o.d -o CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o -c /home/andy/Projects/C++_learning/auto_repair/src/ui/gui.cpp
 
 CMakeFiles/auto_repair.dir/src/ui/gui.cpp.i: cmake_force
@@ -148,7 +162,7 @@ CMakeFiles/auto_repair.dir/src/ui/gui.cpp.s: cmake_force
 CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o: CMakeFiles/auto_repair.dir/flags.make
 CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o: /home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.cpp
 CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o: CMakeFiles/auto_repair.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o -MF CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o.d -o CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o -c /home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.cpp
 
 CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.i: cmake_force
@@ -159,14 +173,30 @@ CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.s: cmake_f
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.cpp -o CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.s
 
+CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o: CMakeFiles/auto_repair.dir/flags.make
+CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o: /home/andy/Projects/C++_learning/auto_repair/src/inventory/store_house.cpp
+CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o: CMakeFiles/auto_repair.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o -MF CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o.d -o CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o -c /home/andy/Projects/C++_learning/auto_repair/src/inventory/store_house.cpp
+
+CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/andy/Projects/C++_learning/auto_repair/src/inventory/store_house.cpp > CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.i
+
+CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/andy/Projects/C++_learning/auto_repair/src/inventory/store_house.cpp -o CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.s
+
 # Object files for target auto_repair
 auto_repair_OBJECTS = \
 "CMakeFiles/auto_repair.dir/auto_repair_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/auto_repair.dir/src/main.cpp.o" \
 "CMakeFiles/auto_repair.dir/src/domain/work_order.cpp.o" \
+"CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o" \
 "CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o" \
 "CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o" \
-"CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o"
+"CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o" \
+"CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o"
 
 # External object files for target auto_repair
 auto_repair_EXTERNAL_OBJECTS =
@@ -174,9 +204,11 @@ auto_repair_EXTERNAL_OBJECTS =
 auto_repair: CMakeFiles/auto_repair.dir/auto_repair_autogen/mocs_compilation.cpp.o
 auto_repair: CMakeFiles/auto_repair.dir/src/main.cpp.o
 auto_repair: CMakeFiles/auto_repair.dir/src/domain/work_order.cpp.o
+auto_repair: CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o
 auto_repair: CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o
 auto_repair: CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o
 auto_repair: CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o
+auto_repair: CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o
 auto_repair: CMakeFiles/auto_repair.dir/build.make
 auto_repair: /usr/lib/x86_64-linux-gnu/libQt6Widgets.so.6.4.2
 auto_repair: /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.4.2
@@ -184,7 +216,7 @@ auto_repair: /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.4.2
 auto_repair: /usr/lib/x86_64-linux-gnu/libGLX.so
 auto_repair: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 auto_repair: CMakeFiles/auto_repair.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable auto_repair"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable auto_repair"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/auto_repair.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -1,2 +1,4 @@
-P002,Oil Filter,30,2,2
-P001,Engine Oil,50,5,3
+P002,Oil Filter,30,25,4,80
+P001,Engine Oil,50,30,5,100
+P003,Air Filter,45,18,3,60
+P004,Brake Pads,120,10,2,40

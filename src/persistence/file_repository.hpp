@@ -21,7 +21,7 @@ class PartCsvRepository : public Repository<Part> {
       Part p; char comma;
       std::getline(ss, p.id, ',');
       std::getline(ss, p.name, ',');
-      ss >> p.unitPrice >> comma >> p.stock >> comma >> p.reorderPoint;
+      ss >> p.unitPrice >> comma >> p.stock >> comma >> p.reorderPoint >> comma >> p.capacity;
       cache_[p.id] = p;
     }
   }
@@ -29,7 +29,7 @@ class PartCsvRepository : public Repository<Part> {
     std::ofstream out(path_, std::ios::trunc);
     for (auto& kv : cache_) {
       const auto& p = kv.second;
-      out << p.id << "," << p.name << "," << p.unitPrice << "," << p.stock << "," << p.reorderPoint << "\n";
+      out << p.id << "," << p.name << "," << p.unitPrice << "," << p.stock << "," << p.reorderPoint << "," << p.capacity << "\n";
     }
   }
 public:

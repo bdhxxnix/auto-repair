@@ -4,6 +4,7 @@
 #include "ui/gui.hpp"
 #include "persistence/data_store_persistence.hpp"
 #include "persistence/file_repository.hpp"
+#include "domain/maintenance_detector.hpp"
 
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
@@ -28,10 +29,14 @@ int main(int argc, char* argv[]) {
     PartCsvRepository partRepo("data/parts.csv");
     auto parts = partRepo.findAll();
     if (parts.empty()) {
-      Part oil{"P001","Engine Oil",50,5,3};
-      Part filter{"P002","Oil Filter",30,2,2};
+      Part oil{"P001","Engine Oil",50,30,5,100};
+      Part filter{"P002","Oil Filter",30,25,4,80};
+      Part air{"P003","Air Filter",45,18,3,60};
+      Part brake{"P004","Brake Pads",120,10,2,40};
       partRepo.save(oil);
       partRepo.save(filter);
+      partRepo.save(air);
+      partRepo.save(brake);
       parts = partRepo.findAll();
     }
     store.parts = parts;
@@ -42,11 +47,9 @@ int main(int argc, char* argv[]) {
     wo.customer = c1;
     wo.advisor.id = "E200";
     wo.advisor.name = "Eve";
-    WOItem item;
-    item.item = ServiceItem{"S001", "更换机油", 0.5, 20};
-    item.laborHoursOverride = 0.5;
-    if (!store.parts.empty()) item.parts.push_back({store.parts.front(), 1});
-    wo.items.push_back(item);
+    auto detection = MaintenanceDetector::detect(v1, store.parts);
+    wo.items = detection.items;
+    wo.detectionNote = detection.note;
     wo.assign(t1);
     auto techIt = std::find_if(store.technicians.begin(), store.technicians.end(), [&](const Technician& t){ return t.id == t1.id; });
     if (techIt != store.technicians.end()) techIt->assignedWorkOrders.push_back(wo.id);

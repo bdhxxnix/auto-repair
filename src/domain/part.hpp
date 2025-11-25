@@ -8,4 +8,5 @@ struct Part {
   double unitPrice{0};
   int stock{0};
   int reorderPoint{3};
+  int capacity{0}; // maximum designed stock for alert threshold
 };

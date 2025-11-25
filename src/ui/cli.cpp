@@ -4,6 +4,8 @@
 #include <utility>
 #include "persistence/file_repository.hpp"
 #include "report/report_service.hpp"
+#include "domain/maintenance_detector.hpp"
+#include "inventory/store_house.hpp"
 
 void ReorderNotifier::onLowStock(const std::string& partId, int stock) {
   std::cout << "[ALERT] Part " << partId << " low stock: " << stock << std::endl;
@@ -12,15 +14,19 @@ void ReorderNotifier::onLowStock(const std::string& partId, int stock) {
 void CLI::demo() {
   // Setup repositories & inventory
   PartCsvRepository repo("data/parts.csv");
-  Inventory inv;
+  StoreHouse store(repo.findAll());
   ReorderNotifier notifier;
-  inv.addObserver(&notifier);
+  store.addObserver(&notifier);
 
   // Seed parts (will persist)
-  Part oil{"P001","Engine Oil",50,5,3};
-  Part filter{"P002","Oil Filter",30,2,2};
-  repo.save(oil); repo.save(filter);
-  inv.upsert(oil); inv.upsert(filter);
+  if (store.snapshot().empty()) {
+    Part oil{"P001","Engine Oil",50,30,5,100};
+    Part filter{"P002","Oil Filter",30,25,4,80};
+    Part air{"P003","Air Filter",45,18,3,60};
+    Part brake{"P004","Brake Pads",120,10,2,40};
+    repo.save(oil); repo.save(filter); repo.save(air); repo.save(brake);
+    store.seed(repo.findAll());
+  }
 
   // Domain objects
   Customer c{"C001","Alice","1380000",1};
@@ -33,11 +39,9 @@ void CLI::demo() {
   wo.id="WO0001";
   wo.vehicle=v; wo.advisor=sa; wo.tech=t; wo.customer=c;
 
-  WOItem i1;
-  i1.item = ServiceItem{"S001","更换机油",0.5,20};
-  i1.parts.push_back({repo.findById("P001").value(),1}); // oil
-  i1.parts.push_back({repo.findById("P002").value(),1}); // filter
-  wo.items.push_back(i1);
+  auto detection = MaintenanceDetector::detect(v, store.snapshot());
+  wo.items = detection.items;
+  wo.detectionNote = detection.note;
 
   // Member discount for VIP
   if (c.level == 1) {
@@ -50,9 +54,13 @@ void CLI::demo() {
   wo.complete();
   double total = wo.settle();
 
-  // Inventory consume
-  inv.consume("P001",1);
-  inv.consume("P002",1);
+  // Inventory consume + alerting
+  if (!store.consumeForOrder(wo)) {
+    std::cout << "[WARN] Not enough stock for all detected parts" << std::endl;
+  }
+  for (const auto& alert : store.takeAlerts()) {
+    std::cout << "[ALERT] " << alert << std::endl;
+  }
 
   // Show result
   std::cout << "WorkOrder " << wo.id << " settled. Total: " << total << std::endl;

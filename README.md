@@ -1,98 +1,55 @@
+# Auto Repair Plant Management System (C++17 / Qt Widgets)
 
-# Auto Repair Plant Management System (C++17 / CMake)
+A auto-repair management demo that now includes an automatic **diagnostic/detection** step for every work order and a capacity-aware **storehouse** that tracks and alerts on part consumption.
 
-A small, object‑oriented **Auto Repair Plant Management System** for teaching purposes (fits the “面向对象程序设计开发与实现” experiment).  
-It demonstrates **encapsulation, inheritance, polymorphism, composition, strategy, observer, state machine**, and simple **CSV persistence**.
+## Quick Start
 
-## Features
+### Requirements
+- CMake 3.12+
+- A C++17 compiler
+- Qt 6 (Widgets module)
 
-- **Customer & Vehicle** management (simplified in memory)
-- **Work Order lifecycle**: Draft → Assigned → InProgress → Completed → Paid
-- **Pricing strategies (Strategy Pattern)**: normal / member / campaign
-- **Employees (Inheritance + Polymorphism)**: Technician, ServiceAdvisor, Manager
-- **Inventory (Observer Pattern)**: low‑stock notification
-- **Simple persistence**: CSV repository for Parts
-- **Reports**: turnover of paid orders (toy demo)
-
-## Project Layout
-
-```
-auto_repair/
-├─ CMakeLists.txt
-├─ data/
-│  └─ parts.csv              # sample data (auto-created/updated)
-└─ src/
-   ├─ main.cpp
-   ├─ domain/
-   │  ├─ person.hpp
-   │  ├─ employee.hpp
-   │  ├─ customer.hpp
-   │  ├─ vehicle.hpp
-   │  ├─ part.hpp
-   │  ├─ service_item.hpp
-   │  ├─ work_order.hpp
-   │  └─ work_order.cpp
-   ├─ inventory/
-   │  ├─ observer.hpp
-   │  └─ inventory.hpp
-   ├─ persistence/
-   │  ├─ repository.hpp
-   │  └─ file_repository.hpp
-   ├─ report/
-   │  └─ report_service.hpp
-   └─ ui/
-      ├─ cli.hpp
-      └─ cli.cpp
-```
-
-## Build & Run
-
+### Build & Run
 ```bash
-# 1) Configure and build (out-of-source)
-cd auto_repair
+cd auto-repair
 cmake -S . -B build
 cmake --build build -j
-
-# 2) Run
 ./build/auto_repair
 ```
+The first launch seeds `data/data_store.json` and `data/parts.csv` with sample customers, vehicles, and a stocked inventory.
 
-Expected output (similar to):
+## Data & Persistence
+- **Storehouse inventory** is loaded from/saved to `data/data_store.json` (runtime state) and `data/parts.csv` (seed data).
+- Each part now carries `capacity`; alerts fire when stock drops to **≤ 10% of capacity** (or below its reorder point if capacity is 0).
+- Work orders persist detected service notes, assigned parts, and pricing strategy choices.
 
-```
-WorkOrder WO0001 settled. Total: 189
-[ALERT] Part P002 low stock: 1
-Paid Orders: 1, Turnover: 189
-```
+## Work Order Detection & Inventory Flow
+1. **Detection step**: when creating a work order, the system inspects the vehicle (year/brand) and proposes service items plus the required parts (oil/filter, air filter, brake pads, or a fallback inspection). A dialog lists what was detected; you can still add a manual service line.
+2. **Assignment & progress**: Draft → Assigned → In Progress → Completed → Paid.
+3. **Settlement & stock**: Settling consumes the required parts from the storehouse. If quantities are insufficient, settlement warns you. When stock drops under 10% of capacity, alerts accompany the settlement dialog. Inventory snapshots show updated stock and capacity.
 
-> The **[ALERT]** line appears when a part stock is at/under its reorder threshold.
+## GUI User Manual
+Launch `./build/auto_repair` to open the Qt GUI. Use the tabs at the top to navigate:
 
-## How It Works (Flow)
+### Customers
+- Left pane: pick an existing customer.
+- Right pane: manage the customer’s vehicles (VIN, plate, brand, model, year).
+- Use **Add Customer** / **Add Vehicle** to expand the roster.
 
-1. **Seed Data**: Parts are read/written via a tiny CSV repository (`PartCsvRepository`).  
-2. **Create Actors**: Customer, Vehicle, Technician (hourly), ServiceAdvisor (salary+commission).  
-3. **Create Work Order** (`WO0001`), add one service item (“更换机油”) consuming two parts.  
-4. **Pricing Strategy**: if customer level is VIP, we switch to `MemberDiscountPricing(0.9)`.  
-5. **Lifecycle**: `assign()` → `start()` → `complete()` → `settle()` → status becomes `Paid`.  
-6. **Inventory**: parts are consumed and the observer prints a low‑stock **ALERT** when needed.  
-7. **Report**: Turnover sums totals of paid orders.
+### Work Orders
+- Choose a vehicle and mechanic.
+- Press **Create Work Order**. The detector proposes service/parts automatically and shows them in a popup. Optionally fill in the manual service fields (ID, name, labor hours, base price, labor override) to append a custom item.
+- Use **Assign**, **Start**, **Complete**, and **Settle** to move through the lifecycle.
+- Settlement consumes parts, persists the updated storehouse, and surfaces low-stock alerts (capacity-based).
+- The table lists each order’s ID, vehicle plate, customer, mechanic, status, total, and the detection note.
 
-## OOP Showcases
+### Mechanics
+- Add technicians with ID, name, and hourly rate.
+- View assigned work orders per technician.
 
-- **Inheritance**: `Employee -> Technician / ServiceAdvisor / Manager`
-- **Polymorphism**: `Employee*` calling `calculatePay()` uses the concrete subclass at runtime;  
-  `PricingStrategy` pointers bind to `NormalPricing`/`MemberDiscountPricing`/`CampaignPricing`.
-- **Strategy Pattern**: pricing is pluggable via `PricingStrategy`.
-- **Observer Pattern**: `InventoryObserver` → `ReorderNotifier` for low stock.
-- **State Machine**: guarded transitions in `WorkOrder` (throws on invalid order).
+### Summary
+- Shows counts and IDs per status (Draft/Paid/etc.).
+- Displays the **inventory snapshot** with current stock vs. capacity so you can plan replenishment.
 
-## Extend Ideas
-
-- Add CRUD menus and repositories for customers/vehicles/work orders.
-- Add `CampaignPricing` time‑window logic.
-- Replace CSV with SQLite/JSON/YAML as you like.
-- Add more reports (top parts, technician utilization, etc.).
-
-## License
-
-Educational use; you can adapt freely in coursework.
+## CLI Demo (optional)
+`src/ui/cli.cpp` still contains a console demo that seeds inventory, runs detection, and prints alerts; the GUI is the primary interface.

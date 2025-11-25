@@ -179,6 +179,30 @@ auto_repair_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/auto_repair_autogen/mocs_compilation.cpp.s
 .PHONY : auto_repair_autogen/mocs_compilation.cpp.s
 
+src/domain/maintenance_detector.o: src/domain/maintenance_detector.cpp.o
+.PHONY : src/domain/maintenance_detector.o
+
+# target to build an object file
+src/domain/maintenance_detector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.o
+.PHONY : src/domain/maintenance_detector.cpp.o
+
+src/domain/maintenance_detector.i: src/domain/maintenance_detector.cpp.i
+.PHONY : src/domain/maintenance_detector.i
+
+# target to preprocess a source file
+src/domain/maintenance_detector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.i
+.PHONY : src/domain/maintenance_detector.cpp.i
+
+src/domain/maintenance_detector.s: src/domain/maintenance_detector.cpp.s
+.PHONY : src/domain/maintenance_detector.s
+
+# target to generate assembly for a file
+src/domain/maintenance_detector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/domain/maintenance_detector.cpp.s
+.PHONY : src/domain/maintenance_detector.cpp.s
+
 src/domain/work_order.o: src/domain/work_order.cpp.o
 .PHONY : src/domain/work_order.o
 
@@ -202,6 +226,30 @@ src/domain/work_order.s: src/domain/work_order.cpp.s
 src/domain/work_order.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/domain/work_order.cpp.s
 .PHONY : src/domain/work_order.cpp.s
+
+src/inventory/store_house.o: src/inventory/store_house.cpp.o
+.PHONY : src/inventory/store_house.o
+
+# target to build an object file
+src/inventory/store_house.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.o
+.PHONY : src/inventory/store_house.cpp.o
+
+src/inventory/store_house.i: src/inventory/store_house.cpp.i
+.PHONY : src/inventory/store_house.i
+
+# target to preprocess a source file
+src/inventory/store_house.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.i
+.PHONY : src/inventory/store_house.cpp.i
+
+src/inventory/store_house.s: src/inventory/store_house.cpp.s
+.PHONY : src/inventory/store_house.s
+
+# target to generate assembly for a file
+src/inventory/store_house.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/inventory/store_house.cpp.s
+.PHONY : src/inventory/store_house.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -313,9 +361,15 @@ help:
 	@echo "... auto_repair_autogen/mocs_compilation.o"
 	@echo "... auto_repair_autogen/mocs_compilation.i"
 	@echo "... auto_repair_autogen/mocs_compilation.s"
+	@echo "... src/domain/maintenance_detector.o"
+	@echo "... src/domain/maintenance_detector.i"
+	@echo "... src/domain/maintenance_detector.s"
 	@echo "... src/domain/work_order.o"
 	@echo "... src/domain/work_order.i"
 	@echo "... src/domain/work_order.s"
+	@echo "... src/inventory/store_house.o"
+	@echo "... src/inventory/store_house.i"
+	@echo "... src/inventory/store_house.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

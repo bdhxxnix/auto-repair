@@ -15,6 +15,7 @@ struct WOItem {
   ServiceItem item;
   std::vector<std::pair<Part, int>> parts; // (part, qty)
   double laborHoursOverride{-1};
+  bool autoDetected{false};
 };
 
 class PricingStrategy {
@@ -51,6 +52,7 @@ public:
   ServiceAdvisor advisor;
   Technician tech;
   Customer customer;
+  std::string detectionNote;
 
   std::vector<WOItem> items;
   WOStatus status{WOStatus::Draft};
