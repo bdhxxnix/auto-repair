@@ -129,6 +129,56 @@ auto_repair/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/build
 .PHONY : auto_repair/fast
 
+#=============================================================================
+# Target rules for targets named auto_repair_autogen_timestamp_deps
+
+# Build rule for target.
+auto_repair_autogen_timestamp_deps: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 auto_repair_autogen_timestamp_deps
+.PHONY : auto_repair_autogen_timestamp_deps
+
+# fast build rule for target.
+auto_repair_autogen_timestamp_deps/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen_timestamp_deps.dir/build.make CMakeFiles/auto_repair_autogen_timestamp_deps.dir/build
+.PHONY : auto_repair_autogen_timestamp_deps/fast
+
+#=============================================================================
+# Target rules for targets named auto_repair_autogen
+
+# Build rule for target.
+auto_repair_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 auto_repair_autogen
+.PHONY : auto_repair_autogen
+
+# fast build rule for target.
+auto_repair_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen.dir/build.make CMakeFiles/auto_repair_autogen.dir/build
+.PHONY : auto_repair_autogen/fast
+
+auto_repair_autogen/mocs_compilation.o: auto_repair_autogen/mocs_compilation.cpp.o
+.PHONY : auto_repair_autogen/mocs_compilation.o
+
+# target to build an object file
+auto_repair_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/auto_repair_autogen/mocs_compilation.cpp.o
+.PHONY : auto_repair_autogen/mocs_compilation.cpp.o
+
+auto_repair_autogen/mocs_compilation.i: auto_repair_autogen/mocs_compilation.cpp.i
+.PHONY : auto_repair_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+auto_repair_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/auto_repair_autogen/mocs_compilation.cpp.i
+.PHONY : auto_repair_autogen/mocs_compilation.cpp.i
+
+auto_repair_autogen/mocs_compilation.s: auto_repair_autogen/mocs_compilation.cpp.s
+.PHONY : auto_repair_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+auto_repair_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/auto_repair_autogen/mocs_compilation.cpp.s
+.PHONY : auto_repair_autogen/mocs_compilation.cpp.s
+
 src/domain/work_order.o: src/domain/work_order.cpp.o
 .PHONY : src/domain/work_order.o
 
@@ -201,6 +251,30 @@ src/ui/cli.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/ui/cli.cpp.s
 .PHONY : src/ui/cli.cpp.s
 
+src/ui/gui.o: src/ui/gui.cpp.o
+.PHONY : src/ui/gui.o
+
+# target to build an object file
+src/ui/gui.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o
+.PHONY : src/ui/gui.cpp.o
+
+src/ui/gui.i: src/ui/gui.cpp.i
+.PHONY : src/ui/gui.i
+
+# target to preprocess a source file
+src/ui/gui.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/ui/gui.cpp.i
+.PHONY : src/ui/gui.cpp.i
+
+src/ui/gui.s: src/ui/gui.cpp.s
+.PHONY : src/ui/gui.s
+
+# target to generate assembly for a file
+src/ui/gui.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/ui/gui.cpp.s
+.PHONY : src/ui/gui.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -209,7 +283,12 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... auto_repair_autogen"
+	@echo "... auto_repair_autogen_timestamp_deps"
 	@echo "... auto_repair"
+	@echo "... auto_repair_autogen/mocs_compilation.o"
+	@echo "... auto_repair_autogen/mocs_compilation.i"
+	@echo "... auto_repair_autogen/mocs_compilation.s"
 	@echo "... src/domain/work_order.o"
 	@echo "... src/domain/work_order.i"
 	@echo "... src/domain/work_order.s"
@@ -219,6 +298,9 @@ help:
 	@echo "... src/ui/cli.o"
 	@echo "... src/ui/cli.i"
 	@echo "... src/ui/cli.s"
+	@echo "... src/ui/gui.o"
+	@echo "... src/ui/gui.i"
+	@echo "... src/ui/gui.s"
 .PHONY : help
 
 

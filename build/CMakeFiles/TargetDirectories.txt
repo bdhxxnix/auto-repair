@@ -1,3 +1,5 @@
 /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles/auto_repair.dir
 /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles/edit_cache.dir
 /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles/rebuild_cache.dir
+/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles/auto_repair_autogen_timestamp_deps.dir
+/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles/auto_repair_autogen.dir

@@ -2,6 +2,23 @@
 #include "domain/work_order.hpp"
 #include <stdexcept>
 
+WorkOrder::WorkOrder(const WorkOrder& other)
+  : id(other.id), vehicle(other.vehicle), advisor(other.advisor), tech(other.tech), customer(other.customer),
+    items(other.items), status(other.status), pricing(other.pricing ? other.pricing->clone() : std::make_unique<NormalPricing>()) {}
+
+WorkOrder& WorkOrder::operator=(const WorkOrder& other) {
+  if (this == &other) return *this;
+  id = other.id;
+  vehicle = other.vehicle;
+  advisor = other.advisor;
+  tech = other.tech;
+  customer = other.customer;
+  items = other.items;
+  status = other.status;
+  pricing = other.pricing ? other.pricing->clone() : std::make_unique<NormalPricing>();
+  return *this;
+}
+
 static double compute_sum(const std::vector<WOItem>& items, double techHourly) {
   double total = 0;
   for (const auto& it : items) {

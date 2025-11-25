@@ -72,21 +72,24 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/auto_repair.dir/clean
+clean: CMakeFiles/auto_repair_autogen_timestamp_deps.dir/clean
+clean: CMakeFiles/auto_repair_autogen.dir/clean
 .PHONY : clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/auto_repair.dir
 
 # All Build rule for target.
-CMakeFiles/auto_repair.dir/all:
+CMakeFiles/auto_repair.dir/all: CMakeFiles/auto_repair_autogen_timestamp_deps.dir/all
+CMakeFiles/auto_repair.dir/all: CMakeFiles/auto_repair_autogen.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=1,2,3,4 "Built target auto_repair"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target auto_repair"
 .PHONY : CMakeFiles/auto_repair.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/auto_repair.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/auto_repair.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles 0
 .PHONY : CMakeFiles/auto_repair.dir/rule
@@ -99,6 +102,58 @@ auto_repair: CMakeFiles/auto_repair.dir/rule
 CMakeFiles/auto_repair.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/clean
 .PHONY : CMakeFiles/auto_repair.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/auto_repair_autogen_timestamp_deps.dir
+
+# All Build rule for target.
+CMakeFiles/auto_repair_autogen_timestamp_deps.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen_timestamp_deps.dir/build.make CMakeFiles/auto_repair_autogen_timestamp_deps.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen_timestamp_deps.dir/build.make CMakeFiles/auto_repair_autogen_timestamp_deps.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num= "Built target auto_repair_autogen_timestamp_deps"
+.PHONY : CMakeFiles/auto_repair_autogen_timestamp_deps.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/auto_repair_autogen_timestamp_deps.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles 0
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/auto_repair_autogen_timestamp_deps.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles 0
+.PHONY : CMakeFiles/auto_repair_autogen_timestamp_deps.dir/rule
+
+# Convenience name for target.
+auto_repair_autogen_timestamp_deps: CMakeFiles/auto_repair_autogen_timestamp_deps.dir/rule
+.PHONY : auto_repair_autogen_timestamp_deps
+
+# clean rule for target.
+CMakeFiles/auto_repair_autogen_timestamp_deps.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen_timestamp_deps.dir/build.make CMakeFiles/auto_repair_autogen_timestamp_deps.dir/clean
+.PHONY : CMakeFiles/auto_repair_autogen_timestamp_deps.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/auto_repair_autogen.dir
+
+# All Build rule for target.
+CMakeFiles/auto_repair_autogen.dir/all: CMakeFiles/auto_repair_autogen_timestamp_deps.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen.dir/build.make CMakeFiles/auto_repair_autogen.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen.dir/build.make CMakeFiles/auto_repair_autogen.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles --progress-num=8 "Built target auto_repair_autogen"
+.PHONY : CMakeFiles/auto_repair_autogen.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/auto_repair_autogen.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/auto_repair_autogen.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/andy/Projects/C++_learning/auto_repair/build/CMakeFiles 0
+.PHONY : CMakeFiles/auto_repair_autogen.dir/rule
+
+# Convenience name for target.
+auto_repair_autogen: CMakeFiles/auto_repair_autogen.dir/rule
+.PHONY : auto_repair_autogen
+
+# clean rule for target.
+CMakeFiles/auto_repair_autogen.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair_autogen.dir/build.make CMakeFiles/auto_repair_autogen.dir/clean
+.PHONY : CMakeFiles/auto_repair_autogen.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
