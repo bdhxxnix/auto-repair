@@ -14,6 +14,7 @@ add_executable(auto_repair
     src/domain/work_order.cpp
     src/ui/cli.cpp
     src/ui/gui.cpp
+    src/persistence/data_store_persistence.cpp
 )
 
 target_include_directories(auto_repair PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)

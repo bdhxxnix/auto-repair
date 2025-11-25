@@ -13,18 +13,12 @@
 #include <QDoubleSpinBox>
 #include <vector>
 #include "domain/work_order.hpp"
-
-struct DataStore {
-  std::vector<Customer> customers;
-  std::vector<Vehicle> vehicles;
-  std::vector<Technician> technicians;
-  std::vector<WorkOrder> workOrders;
-};
+#include "domain/data_store.hpp"
 
 class MainWindow : public QMainWindow {
   Q_OBJECT
 public:
-  explicit MainWindow(DataStore store, QWidget* parent = nullptr);
+  explicit MainWindow(DataStore store, const QString& dataPath, QWidget* parent = nullptr);
 
 private slots:
   void addCustomer();
@@ -39,6 +33,7 @@ private slots:
 
 private:
   DataStore store_;
+  QString dataPath_;
   QTabWidget* tabs_{};
 
   // Customer page widgets
@@ -63,6 +58,7 @@ private:
   // Summary page widgets
   QLabel *summaryLabel_{};
   QTableWidget* statusTable_{};
+  QTableWidget* inventoryTable_{};
 
   void setupUI();
   QWidget* buildCustomerPage();
@@ -77,5 +73,8 @@ private:
   void populateSelectors();
   void updateSummary();
   int currentWorkOrderRow() const;
+  void attachOrderToTech(const std::string& techId, const std::string& woId);
+  void detachOrderFromAllTechs(const std::string& woId);
+  void persist();
 };
 

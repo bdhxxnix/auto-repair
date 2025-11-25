@@ -7,10 +7,12 @@
 #include <QMessageBox>
 #include <QHeaderView>
 #include <QDoubleSpinBox>
+#include <QStringList>
 #include <algorithm>
 #include <map>
 #include <cstdio>
 #include "report/report_service.hpp"
+#include "persistence/data_store_persistence.hpp"
 
 namespace {
 std::string generateId(const std::string& prefix, int number) {
@@ -30,10 +32,16 @@ QString statusToText(WOStatus st) {
   }
   return "Unknown";
 }
+
+QString joinIds(const std::vector<std::string>& ids) {
+  QStringList list;
+  for (const auto& id : ids) list << QString::fromStdString(id);
+  return list.join(", ");
+}
 }
 
-MainWindow::MainWindow(DataStore store, QWidget* parent)
-    : QMainWindow(parent), store_(std::move(store)) {
+MainWindow::MainWindow(DataStore store, const QString& dataPath, QWidget* parent)
+    : QMainWindow(parent), store_(std::move(store)), dataPath_(dataPath) {
   setupUI();
   populateCustomers();
   populateTechnicians();
@@ -112,8 +120,8 @@ QWidget* MainWindow::buildTechnicianPage() {
   auto* page = new QWidget(this);
   auto* layout = new QVBoxLayout(page);
 
-  technicianTable_ = new QTableWidget(0, 3, page);
-  technicianTable_->setHorizontalHeaderLabels({tr("ID"), tr("Name"), tr("Hourly Rate")});
+  technicianTable_ = new QTableWidget(0, 4, page);
+  technicianTable_->setHorizontalHeaderLabels({tr("ID"), tr("Name"), tr("Hourly Rate"), tr("Assigned Orders")});
   technicianTable_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   layout->addWidget(new QLabel(tr("Mechanics"), page));
   layout->addWidget(technicianTable_);
@@ -199,10 +207,17 @@ QWidget* MainWindow::buildSummaryPage() {
   auto* layout = new QVBoxLayout(page);
   summaryLabel_ = new QLabel(tr("Summary"), page);
   layout->addWidget(summaryLabel_);
-  statusTable_ = new QTableWidget(0, 2, page);
-  statusTable_->setHorizontalHeaderLabels({tr("Status"), tr("Count")});
+  layout->addWidget(new QLabel(tr("Status Overview"), page));
+  statusTable_ = new QTableWidget(0, 3, page);
+  statusTable_->setHorizontalHeaderLabels({tr("Status"), tr("Count"), tr("Work Orders")});
   statusTable_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   layout->addWidget(statusTable_);
+
+  layout->addWidget(new QLabel(tr("Inventory Snapshot"), page));
+  inventoryTable_ = new QTableWidget(0, 4, page);
+  inventoryTable_->setHorizontalHeaderLabels({tr("Part ID"), tr("Name"), tr("Stock"), tr("Reorder Point")});
+  inventoryTable_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+  layout->addWidget(inventoryTable_);
   return page;
 }
 
@@ -241,6 +256,7 @@ void MainWindow::populateTechnicians() {
     technicianTable_->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(t.id)));
     technicianTable_->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(t.name)));
     technicianTable_->setItem(row, 2, new QTableWidgetItem(QString::number(t.hourlyRate)));
+    technicianTable_->setItem(row, 3, new QTableWidgetItem(joinIds(t.assignedWorkOrders)));
   }
 }
 
@@ -277,22 +293,51 @@ void MainWindow::populateSelectors() {
 
 void MainWindow::updateSummary() {
   statusTable_->setRowCount(0);
-  std::map<WOStatus, int> counts;
-  for (const auto& w : store_.workOrders) counts[w.status]++;
-  auto insertRow = [&](const QString& name, int count) {
+  auto report = ReportService::summary(store_.workOrders, store_.parts);
+  auto insertRow = [&](const QString& name, WOStatus status) {
+    const auto& ids = report.statusBuckets[status];
     int row = statusTable_->rowCount();
     statusTable_->insertRow(row);
     statusTable_->setItem(row, 0, new QTableWidgetItem(name));
-    statusTable_->setItem(row, 1, new QTableWidgetItem(QString::number(count)));
+    statusTable_->setItem(row, 1, new QTableWidgetItem(QString::number(ids.size())));
+    statusTable_->setItem(row, 2, new QTableWidgetItem(joinIds(ids)));
   };
-  insertRow(tr("Draft"), counts[WOStatus::Draft]);
-  insertRow(tr("Assigned"), counts[WOStatus::Assigned]);
-  insertRow(tr("In Progress"), counts[WOStatus::InProgress]);
-  insertRow(tr("Completed"), counts[WOStatus::Completed]);
-  insertRow(tr("Paid"), counts[WOStatus::Paid]);
+  insertRow(tr("Draft"), WOStatus::Draft);
+  insertRow(tr("Assigned"), WOStatus::Assigned);
+  insertRow(tr("In Progress"), WOStatus::InProgress);
+  insertRow(tr("Completed"), WOStatus::Completed);
+  insertRow(tr("Paid"), WOStatus::Paid);
+  insertRow(tr("Cancelled"), WOStatus::Cancelled);
 
-  auto report = ReportService::turnover(store_.workOrders);
-  summaryLabel_->setText(tr("Paid Orders: %1, Turnover: %2").arg(report.count).arg(report.total));
+  summaryLabel_->setText(tr("Paid Orders: %1, Turnover: %2").arg(report.paidCount).arg(report.turnover));
+
+  inventoryTable_->setRowCount(0);
+  for (const auto& p : report.inventory) {
+    int row = inventoryTable_->rowCount();
+    inventoryTable_->insertRow(row);
+    inventoryTable_->setItem(row, 0, new QTableWidgetItem(QString::fromStdString(p.id)));
+    inventoryTable_->setItem(row, 1, new QTableWidgetItem(QString::fromStdString(p.name)));
+    inventoryTable_->setItem(row, 2, new QTableWidgetItem(QString::number(p.stock)));
+    inventoryTable_->setItem(row, 3, new QTableWidgetItem(QString::number(p.reorderPoint)));
+  }
+}
+
+void MainWindow::attachOrderToTech(const std::string& techId, const std::string& woId) {
+  auto techIt = std::find_if(store_.technicians.begin(), store_.technicians.end(), [&](const Technician& t){ return t.id == techId; });
+  if (techIt == store_.technicians.end()) return;
+  auto& list = techIt->assignedWorkOrders;
+  if (std::find(list.begin(), list.end(), woId) == list.end()) list.push_back(woId);
+}
+
+void MainWindow::detachOrderFromAllTechs(const std::string& woId) {
+  for (auto& t : store_.technicians) {
+    auto& list = t.assignedWorkOrders;
+    list.erase(std::remove(list.begin(), list.end(), woId), list.end());
+  }
+}
+
+void MainWindow::persist() {
+  DataStorePersistence::save(store_, dataPath_.toStdString());
 }
 
 void MainWindow::addCustomer() {
@@ -308,6 +353,7 @@ void MainWindow::addCustomer() {
   store_.customers.push_back(c);
   populateCustomers();
   populateSelectors();
+  persist();
   customerName_->clear();
   customerPhone_->clear();
 }
@@ -332,6 +378,7 @@ void MainWindow::addVehicle() {
   store_.vehicles.push_back(v);
   refreshVehicleList();
   populateSelectors();
+  persist();
   vin_->clear(); plate_->clear(); brand_->clear(); model_->clear();
 }
 
@@ -347,6 +394,7 @@ void MainWindow::addTechnician() {
   store_.technicians.push_back(t);
   populateTechnicians();
   populateSelectors();
+  persist();
   techId_->clear();
   techName_->clear();
 }
@@ -402,10 +450,12 @@ void MainWindow::createWorkOrder() {
     return;
   }
 
+  attachOrderToTech(techIt->id, w.id);
   store_.workOrders.push_back(w);
   populateWorkOrders();
   populateSelectors();
   updateSummary();
+  persist();
   serviceId_->clear();
   serviceName_->clear();
   laborHours_->setValue(0);
@@ -424,12 +474,15 @@ void MainWindow::assignWorkOrder() {
   auto techIt = std::find_if(store_.technicians.begin(), store_.technicians.end(), [&](const Technician& t){ return t.id == techId; });
   if (techIt == store_.technicians.end()) return;
   try {
+    detachOrderFromAllTechs(store_.workOrders[row].id);
     store_.workOrders[row].assign(*techIt);
+    attachOrderToTech(techIt->id, store_.workOrders[row].id);
   } catch (const std::exception& e) {
     QMessageBox::warning(this, tr("Cannot assign"), e.what());
   }
   populateWorkOrders();
   updateSummary();
+  persist();
 }
 
 void MainWindow::startWorkOrder() {
@@ -442,6 +495,7 @@ void MainWindow::startWorkOrder() {
   }
   populateWorkOrders();
   updateSummary();
+  persist();
 }
 
 void MainWindow::completeWorkOrder() {
@@ -454,6 +508,7 @@ void MainWindow::completeWorkOrder() {
   }
   populateWorkOrders();
   updateSummary();
+  persist();
 }
 
 void MainWindow::settleWorkOrder() {
@@ -467,6 +522,7 @@ void MainWindow::settleWorkOrder() {
   }
   populateWorkOrders();
   updateSummary();
+  persist();
 }
 
 void MainWindow::refreshVehicleList() {

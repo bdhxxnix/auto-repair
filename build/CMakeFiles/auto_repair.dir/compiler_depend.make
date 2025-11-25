@@ -6,6 +6,7 @@ auto_repair_autogen/timestamp: /home/andy/Projects/C++_learning/auto_repair/CMak
   CMakeFiles/3.28.3/CMakeSystem.cmake \
   auto_repair_autogen/moc_predefs.h \
   /home/andy/Projects/C++_learning/auto_repair/src/domain/customer.hpp \
+  /home/andy/Projects/C++_learning/auto_repair/src/domain/data_store.hpp \
   /home/andy/Projects/C++_learning/auto_repair/src/domain/employee.hpp \
   /home/andy/Projects/C++_learning/auto_repair/src/domain/part.hpp \
   /home/andy/Projects/C++_learning/auto_repair/src/domain/person.hpp \
@@ -14,6 +15,8 @@ auto_repair_autogen/timestamp: /home/andy/Projects/C++_learning/auto_repair/CMak
   /home/andy/Projects/C++_learning/auto_repair/src/domain/work_order.cpp \
   /home/andy/Projects/C++_learning/auto_repair/src/domain/work_order.hpp \
   /home/andy/Projects/C++_learning/auto_repair/src/main.cpp \
+  /home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.cpp \
+  /home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.hpp \
   /home/andy/Projects/C++_learning/auto_repair/src/report/report_service.hpp \
   /home/andy/Projects/C++_learning/auto_repair/src/ui/cli.cpp \
   /home/andy/Projects/C++_learning/auto_repair/src/ui/cli.hpp \
@@ -304,6 +307,7 @@ auto_repair_autogen/timestamp: /home/andy/Projects/C++_learning/auto_repair/CMak
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qalgorithms.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qanystringview.h \
@@ -2591,9 +2595,17 @@ auto_repair_autogen/mocs_compilation.cpp:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusMacros.cmake:
 
-/usr/include/x86_64-linux-gnu/bits/timex.h:
+/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusDependencies.cmake:
+
+/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusConfigVersionImpl.cmake:
+
+/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusConfigVersion.cmake:
+
+/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusConfig.cmake:
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/timex.h:
 
 /usr/include/time.h:
 
@@ -2789,6 +2801,10 @@ auto_repair_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/13/cctype:
 
+/usr/include/c++/13/bits/vector.tcc:
+
+/usr/include/c++/13/optional:
+
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsTargets-none.cmake:
 
 /usr/include/errno.h:
@@ -2827,8 +2843,6 @@ auto_repair_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/13/typeinfo:
 
-/usr/include/x86_64-linux-gnu/bits/types.h:
-
 /usr/include/c++/13/bits/cpp_type_traits.h:
 
 /usr/include/x86_64-linux-gnu/bits/confname.h:
@@ -2836,20 +2850,6 @@ auto_repair_autogen/mocs_compilation.cpp:
 /usr/include/c++/13/ostream:
 
 /usr/include/alloca.h:
-
-/home/andy/Projects/C++_learning/auto_repair/src/report/report_service.hpp:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreevent.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
-
-/usr/include/c++/13/bits/invoke.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qicon.h:
-
-/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
-
-/usr/include/wchar.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QApplication:
 
@@ -2863,13 +2863,9 @@ auto_repair_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/13/bits/basic_ios.h:
 
-/usr/include/c++/13/bits/iterator_concepts.h:
+/usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
-/usr/include/c++/13/cerrno:
-
-/usr/include/c++/13/bits/stringfwd.h:
-
-/usr/include/c++/13/bits/stl_tree.h:
+/usr/include/wchar.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qscopedpointer.h:
 
@@ -2882,6 +2878,20 @@ auto_repair_autogen/mocs_compilation.cpp:
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
+
+/usr/include/c++/13/bits/locale_classes.tcc:
+
+/usr/include/c++/13/bits/uniform_int_dist.h:
+
+/usr/include/c++/13/bits/stl_multimap.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow:
+
+/usr/include/c++/13/backward/binders.h:
+
+/usr/lib/x86_64-linux-gnu/cmake/Qt6/QtPublicFindPackageHelpers.cmake:
 
 /usr/include/pthread.h:
 
@@ -2907,19 +2917,13 @@ auto_repair_autogen/mocs_compilation.cpp:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qformlayout.h:
 
-/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qpaintdevice.h:
-
-/usr/include/c++/13/bits/shared_ptr.h:
-
 /usr/include/c++/13/bits/ranges_cmp.h:
 
-/usr/lib/x86_64-linux-gnu/cmake/Qt6Gui/Qt6GuiTargets-none.cmake:
+/usr/include/c++/13/backward/auto_ptr.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qpoint.h:
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qvalidator.h:
 
-/usr/include/c++/13/bits/cxxabi_forced.h:
+/usr/include/assert.h:
 
 /usr/include/c++/13/bits/stl_algobase.h:
 
@@ -2953,15 +2957,21 @@ auto_repair_autogen/mocs_compilation.cpp:
 
 auto_repair_autogen/moc_predefs.h:
 
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
 /usr/include/c++/13/cwctype:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6Core/Qt6CoreConfigVersion.cmake:
 
-/usr/include/c++/13/bits/std_function.h:
+/usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qpaintdevice.h:
+
+/usr/include/c++/13/bits/shared_ptr.h:
+
+/usr/include/c++/13/cerrno:
+
+/usr/include/c++/13/bits/stringfwd.h:
+
+/usr/include/c++/13/bits/iterator_concepts.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h:
 
@@ -2969,13 +2979,39 @@ auto_repair_autogen/moc_predefs.h:
 
 /home/andy/Projects/C++_learning/auto_repair/src/domain/part.hpp:
 
-/usr/include/c++/13/backward/auto_ptr.h:
+/usr/include/c++/13/bits/std_function.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qvalidator.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
 
-/usr/include/assert.h:
+/home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.cpp:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication.h:
+
+/usr/lib/x86_64-linux-gnu/cmake/Qt6/FindWrapOpenGL.cmake:
+
+/usr/include/c++/13/stdexcept:
+
+/usr/include/c++/13/clocale:
+
+/usr/include/x86_64-linux-gnu/sys/syscall.h:
+
+/usr/include/c++/13/bits/allocated_ptr.h:
 
 CMakeFiles/3.28.3/CMakeSystem.cmake:
+
+/home/andy/Projects/C++_learning/auto_repair/src/persistence/data_store_persistence.hpp:
+
+/usr/include/c++/13/bits/c++0x_warning.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLayout:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/c++/13/unordered_map:
+
+/usr/lib/x86_64-linux-gnu/cmake/Qt6DBusTools/Qt6DBusToolsTargets-none.cmake:
+
+/usr/include/c++/13/bits/allocator.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
@@ -3019,21 +3055,9 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qlocale.h:
 
-/usr/include/c++/13/bits/c++0x_warning.h:
+/usr/include/c++/13/bits/exception_ptr.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLayout:
-
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:
-
-/usr/include/c++/13/unordered_map:
-
-/usr/lib/x86_64-linux-gnu/cmake/Qt6DBusTools/Qt6DBusToolsTargets-none.cmake:
-
-/usr/include/c++/13/bits/allocator.h:
-
-/usr/include/c++/13/bits/vector.tcc:
-
-/usr/include/c++/13/optional:
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
 
 /home/andy/Projects/C++_learning/auto_repair/src/main.cpp:
 
@@ -3059,35 +3083,31 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/include/c++/13/bits/basic_string.tcc:
 
-/usr/include/c++/13/bits/allocated_ptr.h:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h:
 
-/usr/include/c++/13/bits/locale_classes.tcc:
+/home/andy/Projects/C++_learning/auto_repair/src/domain/data_store.hpp:
 
-/usr/include/c++/13/bits/uniform_int_dist.h:
+/home/andy/Projects/C++_learning/auto_repair/src/report/report_service.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreevent.h:
 
-/usr/include/c++/13/bits/exception_ptr.h:
+/usr/lib/x86_64-linux-gnu/cmake/Qt6Gui/Qt6GuiTargets-none.cmake:
 
-/usr/include/c++/13/bits/stl_multimap.h:
+/usr/include/c++/13/bits/cxxabi_forced.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qpoint.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
-/usr/include/c++/13/backward/binders.h:
+/usr/include/c++/13/bits/invoke.h:
 
-/usr/lib/x86_64-linux-gnu/cmake/Qt6/QtPublicFindPackageHelpers.cmake:
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qicon.h:
 
-/usr/include/c++/13/stdexcept:
+/usr/include/c++/13/bits/stl_tree.h:
 
-/usr/include/c++/13/clocale:
-
-/usr/include/x86_64-linux-gnu/sys/syscall.h:
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/c++/13/bits/locale_facets.h:
 
@@ -3103,11 +3123,27 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qapplication.h:
 
+/usr/include/c++/13/tr1/beta_function.tcc:
+
+/usr/include/c++/13/bits/stl_function.h:
+
 /usr/include/c++/13/bits/localefwd.h:
 
 /usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake:
 
 /usr/include/c++/13/bits/move_only_function.h:
+
+/usr/include/c++/13/bits/uses_allocator_args.h:
+
+/usr/include/c++/13/variant:
+
+/usr/include/c++/13/bits/atomic_base.h:
+
+/usr/include/c++/13/bits/new_allocator.h:
+
+/usr/include/c++/13/bits/stl_uninitialized.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiexports.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h:
 
@@ -3122,10 +3158,6 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h:
 
 /usr/include/c++/13/bits/ranges_algobase.h:
-
-/usr/include/c++/13/tr1/beta_function.tcc:
-
-/usr/include/c++/13/bits/stl_function.h:
 
 /usr/include/c++/13/bits/locale_facets.tcc:
 
@@ -3189,12 +3221,6 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qrect.h:
 
-/usr/include/c++/13/bits/stl_uninitialized.h:
-
-/usr/include/c++/13/bits/new_allocator.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiexports.h:
-
 /usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
 /usr/include/c++/13/bits/stl_map.h:
@@ -3206,8 +3232,6 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 /usr/include/c++/13/bits/stl_relops.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qiterable.h:
-
-/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusConfigVersion.cmake:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
@@ -3221,11 +3245,7 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
-/usr/include/c++/13/variant:
-
-/usr/include/c++/13/bits/atomic_base.h:
-
-/usr/include/c++/13/bits/uses_allocator_args.h:
+/usr/include/x86_64-linux-gnu/bits/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
@@ -3392,10 +3412,6 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qsharedpointer_impl.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerfwd.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication.h:
-
-/usr/lib/x86_64-linux-gnu/cmake/Qt6/FindWrapOpenGL.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h:
 
@@ -3649,8 +3665,6 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qpushbutton.h:
 
-/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusConfig.cmake:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerinfo.h:
@@ -3729,6 +3743,8 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6/QtPublicFinalizerHelpers.cmake:
 
+/usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList:
+
 /usr/lib/x86_64-linux-gnu/cmake/Qt6/QtPublicTargetHelpers.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6/QtPublicToolHelpers.cmake:
@@ -3756,7 +3772,3 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsTargets.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusAdditionalTargetInfo.cmake:
-
-/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusConfigVersionImpl.cmake:
-
-/usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusDependencies.cmake:

@@ -227,6 +227,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/persistence/data_store_persistence.o: src/persistence/data_store_persistence.cpp.o
+.PHONY : src/persistence/data_store_persistence.o
+
+# target to build an object file
+src/persistence/data_store_persistence.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o
+.PHONY : src/persistence/data_store_persistence.cpp.o
+
+src/persistence/data_store_persistence.i: src/persistence/data_store_persistence.cpp.i
+.PHONY : src/persistence/data_store_persistence.i
+
+# target to preprocess a source file
+src/persistence/data_store_persistence.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.i
+.PHONY : src/persistence/data_store_persistence.cpp.i
+
+src/persistence/data_store_persistence.s: src/persistence/data_store_persistence.cpp.s
+.PHONY : src/persistence/data_store_persistence.s
+
+# target to generate assembly for a file
+src/persistence/data_store_persistence.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/auto_repair.dir/build.make CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.s
+.PHONY : src/persistence/data_store_persistence.cpp.s
+
 src/ui/cli.o: src/ui/cli.cpp.o
 .PHONY : src/ui/cli.o
 
@@ -295,6 +319,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/persistence/data_store_persistence.o"
+	@echo "... src/persistence/data_store_persistence.i"
+	@echo "... src/persistence/data_store_persistence.s"
 	@echo "... src/ui/cli.o"
 	@echo "... src/ui/cli.i"
 	@echo "... src/ui/cli.s"

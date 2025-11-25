@@ -1,5 +1,7 @@
 
 #pragma once
+#include <vector>
+#include <string>
 #include "person.hpp"
 
 struct Employee : public Person {
@@ -10,6 +12,7 @@ struct Employee : public Person {
 struct Technician : public Employee {
   double hourlyRate{120.0};
   int hoursWorked{0};
+  std::vector<std::string> assignedWorkOrders;
   double calculatePay() const override { return hourlyRate * hoursWorked; }
 };
 

@@ -8,6 +8,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/auto_repair.dir/src/domain/work_order.cpp.o.d"
   "CMakeFiles/auto_repair.dir/src/main.cpp.o"
   "CMakeFiles/auto_repair.dir/src/main.cpp.o.d"
+  "CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o"
+  "CMakeFiles/auto_repair.dir/src/persistence/data_store_persistence.cpp.o.d"
   "CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o"
   "CMakeFiles/auto_repair.dir/src/ui/cli.cpp.o.d"
   "CMakeFiles/auto_repair.dir/src/ui/gui.cpp.o"

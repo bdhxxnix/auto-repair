@@ -41,7 +41,9 @@ double CampaignPricing::calcTotal(const std::vector<WOItem>& items, double techH
 
 void WorkOrder::assign(const Technician& t) {
   if (status != WOStatus::Draft) throw std::runtime_error("Can only assign in Draft");
-  tech = t; status = WOStatus::Assigned;
+  tech = t;
+  if (!id.empty()) tech.assignedWorkOrders.push_back(id);
+  status = WOStatus::Assigned;
 }
 void WorkOrder::start() {
   if (status != WOStatus::Assigned) throw std::runtime_error("Can only start after Assigned");
