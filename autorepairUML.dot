@@ -1,0 +1,271 @@
+digraph AutoRepair{
+  rankdir=LR;
+  nodesep=0.8;
+  ranksep=1.0;
+  fontname="Helvetica";
+
+  node [
+    shape=none
+    fontname="Helvetica"
+  ];
+
+  // ==== Generic Class Template ====
+  // Use HTML-like table with yellow header + white body
+  // ----------------------------------------------
+
+  Person [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>Person</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + id: string<BR ALIGN="LEFT"/>
+          + name: string
+        </TD></TR>
+        
+        <TR><TD ALIGN="LEFT">
+          ~ Person()
+        </TD></TR>
+        
+      </TABLE>
+    >
+  ];
+
+  Employee [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>Employee</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          <<abstract>><BR ALIGN="LEFT"/>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          calculatePay(): double<BR ALIGN="LEFT"/>
+          ~Employee()
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  Technician [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>Technician</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + hourlyRate: double<BR ALIGN="LEFT"/>
+          + hoursWorked: int<BR ALIGN="LEFT"/>
+          + assignedWorkOrders: vector&lt;string&gt;
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          - calculatePay(): double
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  ServiceAdvisor [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>ServiceAdvisor</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + baseSalary: double<BR ALIGN="LEFT"/>
+          + commission: double
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          - calculatePay(): double
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  Manager [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>Manager</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + baseSalary: double<BR ALIGN="LEFT"/>
+          + bonus: double
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          calculatePay(): double
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  Customer [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>Customer</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + id: string<BR ALIGN="LEFT"/>
+          + name: string<BR ALIGN="LEFT"/>
+          + phone: string<BR ALIGN="LEFT"/>
+          + level: int
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  Vehicle [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>Vehicle</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + vin: string<BR ALIGN="LEFT"/>
+          + plate: string<BR ALIGN="LEFT"/>
+          + brand: string<BR ALIGN="LEFT"/>
+          + model: string<BR ALIGN="LEFT"/>
+          + year: int<BR ALIGN="LEFT"/>
+          + ownerId: string
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  Part [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>Part</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + id: string<BR ALIGN="LEFT"/>
+          + name: string<BR ALIGN="LEFT"/>
+          + unitPrice: double<BR ALIGN="LEFT"/>
+          + stock: int<BR ALIGN="LEFT"/>
+          + reorderPoint: int<BR ALIGN="LEFT"/>
+          + capacity: int
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  ServiceItem [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>ServiceItem</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + id: string<BR ALIGN="LEFT"/>
+          + name: string<BR ALIGN="LEFT"/>
+          + laborHours: double<BR ALIGN="LEFT"/>
+          + basePrice: double
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  PricingStrategy [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>PricingStrategy</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          <<interface>>
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + clone(): unique_ptr&lt;PricingStrategy&gt;<BR ALIGN="LEFT"/>
+          + calcTotal(items, techHourly): double
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  NormalPricing [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>NormalPricing</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + calcTotal(...): double
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  MemberDiscountPricing [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>MemberDiscountPricing</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + rate_: double
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + calcTotal(...): double<BR ALIGN="LEFT"/>
+          + clone(): unique_ptr
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  CampaignPricing [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>CampaignPricing</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + rate_: double
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + calcTotal(...): double<BR ALIGN="LEFT"/>
+          + clone(): unique_ptr
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  WOItem [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>WOItem</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + item: ServiceItem<BR ALIGN="LEFT"/>
+          + parts: vector&lt;pair&lt;Part,int&gt;&gt;<BR ALIGN="LEFT"/>
+          + laborHoursOverride: double<BR ALIGN="LEFT"/>
+          + autoDetected: bool <BR ALIGN="LEFT"/>
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  WorkOrder [
+    label=<
+      <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" RULES="ROWS">
+        <TR><TD BGCOLOR="#F7D774" ALIGN="CENTER"><B>WorkOrder</B></TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + id: string<BR ALIGN="LEFT"/>
+          + vehicle: Vehicle<BR ALIGN="LEFT"/>
+          + advisor: ServiceAdvisor<BR ALIGN="LEFT"/>
+          + tech: Technician<BR ALIGN="LEFT"/>
+          + customer: Customer<BR ALIGN="LEFT"/>
+          + detectionNote: string<BR ALIGN="LEFT"/>
+          + items: vector&lt;WOItem&gt;<BR ALIGN="LEFT"/>
+          + status: WOStatus<BR ALIGN="LEFT"/>
+          + pricing: unique_ptr&lt;PricingStrategy&gt;
+        </TD></TR>
+        <TR><TD ALIGN="LEFT">
+          + assign(Technician): void<BR ALIGN="LEFT"/>
+          + start(): void<BR ALIGN="LEFT"/>
+          + complete(): void<BR ALIGN="LEFT"/>
+          + settle(): double<BR ALIGN="LEFT"/>
+          + previewTotal(): double <BR ALIGN="LEFT"/>
+        </TD></TR>
+      </TABLE>
+    >
+  ];
+
+  // Inheritance
+  Person -> Employee [arrowhead="empty"];
+  Employee -> Technician [arrowhead="empty"];
+  Employee -> ServiceAdvisor [arrowhead="empty"];
+  Employee -> Manager [arrowhead="empty"];
+  PricingStrategy -> NormalPricing [arrowhead="empty"];
+  PricingStrategy -> MemberDiscountPricing [arrowhead="empty"];
+  PricingStrategy -> CampaignPricing [arrowhead="empty"];
+
+  // Composition (diamond)
+  WorkOrder -> Vehicle [arrowtail="diamond", dir=back];
+  WorkOrder -> Customer [arrowtail="diamond", dir=back];
+  WorkOrder -> Technician [arrowtail="diamond", dir=back];
+  WorkOrder -> ServiceAdvisor [arrowtail="diamond", dir=back];
+  WorkOrder -> WOItem [arrowtail="diamond", dir=back];
+
+  // Association
+  WOItem -> ServiceItem [arrowhead="vee"];
+  WOItem -> Part [arrowhead="vee"];
+  Vehicle -> Customer [style="dashed", arrowhead="vee"];
+  WorkOrder -> PricingStrategy [style="dashed", arrowhead="vee"];
+}
